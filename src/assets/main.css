@@ -5,6 +5,10 @@
   More info on how to modify the Conduit SASS styles can be found at
   https://github.com/GoThinkster/conduit-sass
 */
+
+/* font used in the entire web app */
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap');
+
 .logo-font {
   font-family: "Titillium Web", sans-serif; }
 
