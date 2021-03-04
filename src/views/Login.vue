@@ -15,6 +15,7 @@
           <form>
             <fieldset class="form-group">
               <input
+                v-model="email"
                 class="form-control form-control-lg"
                 type="text"
                 placeholder="Email"
@@ -22,13 +23,14 @@
             </fieldset>
             <fieldset class="form-group">
               <input
+                v-model="password"
                 class="form-control form-control-lg"
                 type="password"
                 placeholder="Password"
               />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right">
-              Sign up
+            <button @click="login" class="btn btn-lg btn-primary pull-xs-right">
+              Login
             </button>
           </form>
         </div>
@@ -36,3 +38,21 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  data: function() {
+    return {
+      email: null,
+      password: null,
+    };
+  },
+  methods: {
+    login() {
+      this.$store.dispatch("users/loginUser", {
+        email: this.email,
+        password: this.password,
+      });
+    },
+  },
+};
+</script>

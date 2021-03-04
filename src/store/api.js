@@ -11,6 +11,6 @@ export function setToken(jwt) {
 }
 
 // clears jwt token from the auth header
-export function clearToken(jwt) {
+export function clearToken() {
   API.defaults.headers.common["Authorization"] = undefined;
 }
