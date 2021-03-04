@@ -9,7 +9,9 @@
           </p>
 
           <ul class="error-messages">
-            <li>That email is already taken</li>
+            <li v-for="(error, ind) in errors" :key="ind">
+              {{ error.message }}
+            </li>
           </ul>
 
           <form>
@@ -29,7 +31,10 @@
                 placeholder="Password"
               />
             </fieldset>
-            <button @click="login" class="btn btn-lg btn-primary pull-xs-right">
+            <button
+              @click.prevent="login"
+              class="btn btn-lg btn-primary pull-xs-right"
+            >
               Login
             </button>
           </form>
@@ -40,18 +45,31 @@
 </template>
 <script>
 export default {
-  data: function() {
+  data: function () {
     return {
       email: null,
       password: null,
+      errors: [],
     };
   },
   methods: {
     login() {
-      this.$store.dispatch("users/loginUser", {
-        email: this.email,
-        password: this.password,
-      });
+      this.$store
+        .dispatch("users/loginUser", {
+          email: this.email,
+          password: this.password,
+        })
+        .then(() => {
+          // clearing all the errors in case of successful login
+          this.errors = [];
+          // if the login was successful, redirect user to the home page
+          this.$router.push({
+            name: "home",
+          });
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
     },
   },
 };

@@ -1,4 +1,4 @@
-import { API, setToken } from "../api";
+import { API, setToken, clearToken } from "../api";
 
 export default {
   namespaced: true,
@@ -20,19 +20,26 @@ export default {
       commit("setUser", user);
     },
     loginUser: async function({ commit }, { email, password }) {
-      const response = await API.post("/users/login", {
-        user: {
-          email,
-          password,
-        },
-      });
+      // clearing out any existing jwt tokens, if any
+      clearToken();
+      try {
+        const response = await API.post("/users/login", {
+          user: {
+            email,
+            password,
+          },
+        });
 
-      if (response.data.user) {
-        // gets the jwt token from the response and stores it in the auth header
-        const token = response.data.user.token;
-        setToken(token);
-        // setting the logged in user as the current user
-        commit("setUser", response.data.user);
+        if (response.data.user) {
+          // gets the jwt token from the response and stores it in the auth header
+          const token = response.data.user.token;
+          setToken(token);
+          // setting the logged in user as the current user
+          commit("setUser", response.data.user);
+        }
+      } catch (e) {
+        console.error(e);
+        throw e;
       }
     },
   },
