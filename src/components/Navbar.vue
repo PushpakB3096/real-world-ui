@@ -35,6 +35,7 @@
 <script>
 export default {
   computed: {
+    // getting the username of the logged in user from the store
     username() {
       return this.$store.getters["users/username"];
     },
