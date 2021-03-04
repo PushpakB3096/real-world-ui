@@ -8,7 +8,11 @@ export default {
     // 'profile' will hold the user whose profile I am looking at
     profile: null,
   },
-  getters: {},
+  getters: {
+    username(state) {
+      return (state.user && state.user.username) || null;
+    },
+  },
   mutations: {
     setUser(state, payload) {
       state.user = payload;
