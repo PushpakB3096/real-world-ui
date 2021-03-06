@@ -17,6 +17,9 @@ export default {
     setUser(state, payload) {
       state.user = payload;
     },
+    setProfile(state, { profile }) {
+      state.profile = profile;
+    },
   },
   actions: {
     getUser: async function({ commit }) {
@@ -45,6 +48,10 @@ export default {
         console.error(e);
         throw e;
       }
+    },
+    getProfile: async function({ commit }, { username }) {
+      const profile = await API.get(`/profiles/${username}`);
+      commit("setProfile", profile.data);
     },
   },
 };
