@@ -14,7 +14,6 @@ export default {
   actions: {
     getProfile: async function({ commit }, { username }) {
       const profile = await API.get(`/profiles/${username}`);
-      console.log("profile in store", profile.data);
       commit("setProfile", profile.data);
     },
   },

@@ -83,14 +83,12 @@
 export default {
   props: ["username"],
   created() {
-    console.log("username from props in mounted", this.$props.username);
     this.$store.dispatch("profiles/getProfile", {
       username: this.$props.username,
     });
   },
   computed: {
     profile() {
-      console.log("computed profile", this.$store.state.profiles.profile);
       return this.$store.state.profiles.profile;
     },
   },
