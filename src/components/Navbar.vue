@@ -8,7 +8,7 @@
           <router-link class="nav-link active" to="/">Home</router-link>
         </li>
         <li v-if="username" class="nav-item">
-          <router-link class="nav-link" to="">
+          <router-link class="nav-link" to="/editor">
             <i class="ion-compose"></i>&nbsp;New Post
           </router-link>
         </li>

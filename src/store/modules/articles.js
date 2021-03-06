@@ -46,6 +46,37 @@ export default {
       const response = await API.get(route);
       commit("setArticles", response.data);
     },
+
+    async createArticle(
+      state,
+      { title, description, body, tagList = ["test"] }
+    ) {
+      console.log(title);
+      if (!title) {
+        throw new Error("Title cannot be empty");
+      }
+      if (!description) {
+        throw new Error("Description cannot be empty");
+      }
+      if (!body) {
+        throw new Error("Body cannot be empty");
+      }
+
+      let route = "articles";
+      const response = await API.post(route, {
+        article: {
+          title,
+          description,
+          body,
+          tagList,
+        },
+      });
+
+      // if a post is created successfully then it is returned
+      if (response.data.article) {
+        return response.data.article;
+      }
+    },
   },
   getters: {},
 };
