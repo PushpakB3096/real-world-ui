@@ -13,21 +13,34 @@
           <div class="feed-toggle">
             <ul class="nav nav-pills outline-active">
               <li class="nav-item">
-                <a class="nav-link disabled" href="">Your Feed</a>
+                <a
+                  class="nav-link"
+                  :class="{ active: activeFeed === 'user' }"
+                  @click="setFeed('user')"
+                  v-if="username"
+                  >Your Feed</a
+                >
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="">Global Feed</a>
+                <a
+                  class="nav-link"
+                  :class="{ active: activeFeed === 'global' }"
+                  @click="setFeed('global')"
+                  >Global Feed</a
+                >
               </li>
             </ul>
           </div>
 
           <!-- Rendering all the article previews -->
-          <ArticlePreview
-            v-for="(article) in articles"
-            :key="article.slug"
-            :article="article"
-          ></ArticlePreview>
-
+          <template v-if="articles.length != 0">
+            <ArticlePreview
+              v-for="article in articles"
+              :key="article.slug"
+              :article="article"
+            ></ArticlePreview>
+          </template>
+          <template v-else>No articles yet...</template>
         </div>
 
         <div class="col-md-3">
@@ -52,51 +65,48 @@
 </template>
 <script>
 import ArticlePreview from "@/components/ArticlePreview";
-// import API from "../store/api"
 
 export default {
   data: function () {
     return {
-      articles: [
-        {
-          slug: "how-to-train-your-dragon",
-          title: "How to train your dragon",
-          description: "Ever wonder how?",
-          body: "It takes a Jacobian",
-          tagList: ["dragons", "training"],
-          createdAt: "2016-02-18T03:22:56.637Z",
-          updatedAt: "2016-02-18T03:48:35.824Z",
-          favorited: false,
-          favoritesCount: 0,
-          author: {
-            username: "jake",
-            bio: "I work at statefarm",
-            image: "https://i.stack.imgur.com/xHWG8.jpg",
-            following: false,
-          },
-        },
-        {
-          slug: "how-to-train-your-dragon-2",
-          title: "How to train your dragon 2",
-          description: "So toothless",
-          body: "It a dragon",
-          tagList: ["dragons", "training"],
-          createdAt: "2016-02-18T03:22:56.637Z",
-          updatedAt: "2016-02-18T03:48:35.824Z",
-          favorited: false,
-          favoritesCount: 0,
-          author: {
-            username: "jake",
-            bio: "I work at statefarm",
-            image: "https://i.stack.imgur.com/xHWG8.jpg",
-            following: false,
-          },
-        },
-      ],
+      activeFeed: null,
     };
   },
   components: {
     ArticlePreview,
+  },
+  computed: {
+    // getting the username of the logged in user from the store
+    username() {
+      return this.$store.getters["users/username"];
+    },
+    articles() {
+      return this.$store.state.articles.feed || [];
+    },
+  },
+  methods: {
+    setFeed(feedType) {
+      switch (feedType) {
+        case "user":
+          {
+            // changes the active tab to user
+            this.activeFeed = "user";
+            this.$store.dispatch("articles/getUserFeed");
+          }
+          break;
+        case "global":
+          {
+            // changes the active tab to global
+            this.activeFeed = "global";
+            this.$store.dispatch("articles/getGlobalFeed");
+          }
+          break;
+      }
+    },
+  },
+  created() {
+    // fetch all the global feeds on page create
+    this.setFeed("global");
   },
 };
 </script>

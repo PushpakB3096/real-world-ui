@@ -37,6 +37,7 @@ export default {
     async getUserFeed({ commit }, payload = { page: 1 }) {
       let route = "/articles/feed";
 
+      // constructing route based on payload
       if (payload) {
         const { page = 1 } = payload;
 
