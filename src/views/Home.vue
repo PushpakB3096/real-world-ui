@@ -40,7 +40,9 @@
               :article="article"
             ></ArticlePreview>
           </template>
-          <template v-else>No articles yet...</template>
+          <!-- there will always be atleast one global article. So displaying a loading message for global feed -->
+          <template v-else-if="activeFeed === 'global'">Loading articles...</template>
+          <template v-else>No articles here...</template>
         </div>
 
         <div class="col-md-3">

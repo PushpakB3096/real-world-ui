@@ -4,11 +4,10 @@
       <div class="container">
         <div class="row">
           <div class="col-xs-12 col-md-10 offset-md-1">
-            <img src="http://i.imgur.com/Qr71crq.jpg" class="user-img" />
-            <h4>Pushpak Bhattacharya</h4>
+            <img :src="profile.image" class="user-img"/>
+            <h4>{{ profile.username }}</h4>
             <p>
-              Cofounder @GoThinkster, lived in Aol's HQ for a few months, kinda
-              looks like Peeta from the Hunger Games
+              {{ profile.bio }}
             </p>
             <button class="btn btn-sm btn-outline-secondary action-btn">
               <i class="ion-plus-round"></i>
@@ -35,7 +34,7 @@
 
           <div class="article-preview">
             <div class="article-meta">
-              <a href=""><img src="http://i.imgur.com/Qr71crq.jpg"/></a>
+              <a href=""><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
               <div class="info">
                 <a href="" class="author">Eric Simons</a>
                 <span class="date">January 20th</span>
@@ -53,7 +52,7 @@
 
           <div class="article-preview">
             <div class="article-meta">
-              <a href=""><img src="http://i.imgur.com/N4VcUeJ.jpg"/></a>
+              <a href=""><img src="http://i.imgur.com/N4VcUeJ.jpg" /></a>
               <div class="info">
                 <a href="" class="author">Albert Pai</a>
                 <span class="date">January 20th</span>
@@ -80,3 +79,20 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  props: ["username"],
+  created() {
+    console.log("username from props in mounted", this.$props.username);
+    this.$store.dispatch("profiles/getProfile", {
+      username: this.$props.username,
+    });
+  },
+  computed: {
+    profile() {
+      console.log("computed profile", this.$store.state.profiles.profile);
+      return this.$store.state.profiles.profile;
+    },
+  },
+};
+</script>
