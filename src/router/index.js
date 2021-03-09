@@ -3,49 +3,55 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue")
+    component: () => import(/* webpackChunkName: "home" */ "../views/Home.vue"),
   },
   {
     path: "/login",
     name: "login",
     component: () =>
-      import(/* webpackChunkName: "login" */ "../views/Login.vue")
+      import(/* webpackChunkName: "login" */ "../views/Login.vue"),
   },
   {
     path: "/register",
     name: "register",
     component: () =>
-      import(/* webpackChunkName: "register" */ "../views/Register.vue")
+      import(/* webpackChunkName: "register" */ "../views/Register.vue"),
   },
   {
     path: "/editor",
     name: "editor_new",
     component: () =>
-      import(/* webpackChunkName: "article-add" */ "../views/ArticleAdd.vue")
+      import(/* webpackChunkName: "article-add" */ "../views/ArticleAdd.vue"),
   },
   {
     path: "/editor/:articleSlug",
     name: "editor_edit",
     component: () =>
-      import(/* webpackChunkName: "article-edit" */ "../views/ArticleEdit.vue")
+      import(/* webpackChunkName: "article-edit" */ "../views/ArticleEdit.vue"),
   },
   {
     path: "/article/:articleSlug",
     name: "article",
     component: () =>
-      import(/* webpackChunkName: "article" */ "../views/ArticleView.vue")
+      import(/* webpackChunkName: "article" */ "../views/ArticleView.vue"),
   },
   {
     path: "/:username",
     name: "profile",
     component: () =>
-      import(/* webpackChunkName: "profile" */ "../views/ProfileView.vue")
-  }
+      import(/* webpackChunkName: "profile" */ "../views/ProfileView.vue"),
+  },
+  {
+    path: "/settings",
+    name: "settings",
+    component: () =>
+      import(/* webpackChunkName: "settings" */ "../views/Settings.vue"),
+  },
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
 });
 
 export default router;
