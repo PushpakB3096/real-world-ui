@@ -41,23 +41,23 @@
             ></ArticlePreview>
           </template>
           <!-- there will always be atleast one global article. So displaying a loading message for global feed -->
-          <template v-else-if="activeFeed === 'global'">Loading articles...</template>
+          <template v-else-if="activeFeed === 'global'"
+            >Loading articles...</template
+          >
           <template v-else>No articles here...</template>
         </div>
 
         <div class="col-md-3">
           <div class="sidebar">
             <p>Popular Tags</p>
-
-            <div class="tag-list">
-              <a href="" class="tag-pill tag-default">programming</a>
-              <a href="" class="tag-pill tag-default">javascript</a>
-              <a href="" class="tag-pill tag-default">emberjs</a>
-              <a href="" class="tag-pill tag-default">angularjs</a>
-              <a href="" class="tag-pill tag-default">react</a>
-              <a href="" class="tag-pill tag-default">mean</a>
-              <a href="" class="tag-pill tag-default">node</a>
-              <a href="" class="tag-pill tag-default">rails</a>
+            <span v-if="!tags.length">Loading tags...</span>
+            <div v-else class="tag-list">
+              <template v-for="(tag, idx) in tags" :key="idx">
+                <!-- TODO: clicking on name of tag should show the user articles having that tag -->
+                <router-link class="tag-pill tag-default" to="/">{{
+                  tag
+                }}</router-link>
+              </template>
             </div>
           </div>
         </div>
@@ -85,6 +85,9 @@ export default {
     articles() {
       return this.$store.state.articles.feed || [];
     },
+    tags() {
+      return this.$store.getters["tags/tags"] || [];
+    },
   },
   methods: {
     setFeed(feedType) {
@@ -105,10 +108,14 @@ export default {
           break;
       }
     },
+    fetchTags() {
+      this.$store.dispatch("tags/getTags");
+    },
   },
   created() {
     // fetch all the global feeds on page create
     this.setFeed("global");
+    this.fetchTags();
   },
 };
 </script>
