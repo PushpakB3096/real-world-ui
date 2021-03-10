@@ -37,7 +37,10 @@ export default {
   computed: {
     // getting the username of the logged in user from the store
     username() {
-      return this.$store.getters["users/username"];
+      const username =
+        this.$store.getters["users/user"] &&
+        this.$store.getters["users/user"].username;
+      return username;
     },
   },
 };

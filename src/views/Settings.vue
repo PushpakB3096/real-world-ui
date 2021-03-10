@@ -9,6 +9,7 @@
             <fieldset>
               <fieldset class="form-group">
                 <input
+                  v-model="user.image"
                   class="form-control"
                   type="text"
                   placeholder="URL of profile picture"
@@ -16,6 +17,7 @@
               </fieldset>
               <fieldset class="form-group">
                 <input
+                  v-model="user.username"
                   class="form-control form-control-lg"
                   type="text"
                   placeholder="Your Name"
@@ -23,6 +25,7 @@
               </fieldset>
               <fieldset class="form-group">
                 <textarea
+                  v-model="user.bio"
                   class="form-control form-control-lg"
                   rows="8"
                   placeholder="Short bio about you"
@@ -30,6 +33,7 @@
               </fieldset>
               <fieldset class="form-group">
                 <input
+                  v-model="user.email"
                   class="form-control form-control-lg"
                   type="text"
                   placeholder="Email"
@@ -53,5 +57,12 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  computed: {
+    user() {
+      // getting the data of the current logged in user in order to prefill the boxes
+      return this.$store.getters["users/user"];
+    },
+  },
+};
 </script>

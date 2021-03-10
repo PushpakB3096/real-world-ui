@@ -9,8 +9,8 @@ export default {
     profile: null,
   },
   getters: {
-    username(state) {
-      return (state.user && state.user.username) || null;
+    user(state) {
+      return state.user || null;
     },
   },
   mutations: {
