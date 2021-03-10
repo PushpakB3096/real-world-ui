@@ -53,5 +53,25 @@ export default {
       const profile = await API.get(`/profiles/${username}`);
       commit("setProfile", profile.data);
     },
+    updateUser: async function({ commit }, { email, username, image, bio }) {
+      const route = "/user";
+
+      const response = await API.put(route, {
+        user: {
+          email,
+          username,
+          image,
+          bio,
+        },
+      });
+
+      if (response.data.user) {
+        // gets the jwt token from the response and stores it in the auth header
+        const token = response.data.user.token;
+        setToken(token);
+        // setting the logged in user as the current user
+        commit("setUser", response.data.user);
+      }
+    },
   },
 };

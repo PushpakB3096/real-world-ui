@@ -46,7 +46,10 @@
                   placeholder="Password"
                 />
               </fieldset>
-              <button class="btn btn-lg btn-primary pull-xs-right">
+              <button
+                @click.prevent="updateUser"
+                class="btn btn-lg btn-primary pull-xs-right"
+              >
                 Update Settings
               </button>
             </fieldset>
@@ -62,6 +65,37 @@ export default {
     user() {
       // getting the data of the current logged in user in order to prefill the boxes
       return this.$store.getters["users/user"];
+    },
+  },
+  methods: {
+    updateUser() {
+      // getting all the field values
+      const email = this.user.email;
+      const username = this.user.username;
+      const image = this.user.image;
+      const bio = this.user.bio;
+
+      // creating user object from the field values
+      const updatedUser = {
+        email,
+        username,
+        image,
+        bio,
+      };
+
+      // updating the user
+      this.$store
+        .dispatch("users/updateUser", updatedUser)
+        .then(() => {
+          // redirecting the user to the home page upon successful updation
+          this.$router.push({
+            name: "home",
+          });
+        })
+        .catch((e) => {
+          // TODO: need to show a toast or other kind of message for errors
+          console.log("error", e);
+        });
     },
   },
 };
