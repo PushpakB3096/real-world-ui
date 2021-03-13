@@ -11,8 +11,12 @@
         >
         <span class="date">{{ formatDate(article.createdAt) }}</span>
       </div>
-      <button class="btn btn-outline-primary btn-sm pull-xs-right">
-        <i class="ion-heart"></i> {{ article.favoritesCount }}
+      <button
+        @click="favouriteArticle(article.slug)"
+        class="btn btn-outline-primary btn-sm pull-xs-right"
+      >
+        <i class="ion-heart"></i>
+        {{ article.favoritesCount }}
       </button>
     </div>
     <router-link :to="`article/${article.slug}`" class="preview-link">
@@ -39,6 +43,16 @@ export default {
           username,
         },
       });
+    },
+    favouriteArticle(slug) {
+      this.$store
+        .dispatch("articles/favouriteArticle", { slug })
+        .then((article) => {
+          console.log(article);
+        })
+        .catch((e) => {
+          console.error("An error occured while favourating the article", e);
+        });
     },
   },
 };

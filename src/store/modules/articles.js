@@ -77,6 +77,19 @@ export default {
         return response.data.article;
       }
     },
+    async favouriteArticle(state, { slug }) {
+      let route = "/articles/";
+
+      if (slug) {
+        route += `${slug}/favorite`;
+      }
+
+      const response = await API.post(route);
+
+      if (response.data) {
+        return response.data.article;
+      }
+    },
   },
   getters: {},
 };
