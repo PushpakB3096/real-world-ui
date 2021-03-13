@@ -94,7 +94,7 @@ export default {
         })
         .catch((e) => {
           // TODO: need to show a toast or other kind of message for errors
-          console.log("error", e);
+          console.error("error", e);
         });
     },
   },

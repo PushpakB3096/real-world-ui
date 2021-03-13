@@ -11,6 +11,21 @@ export default {
       state.feed = articles;
       state.count = articleCount;
     },
+    setArticleInList(state, data) {
+      state.feed = state.feed.map((article) => {
+        /* we are only concerned with updating the article on which the favourtie button was clicked.
+        Returning the article as is, if that is the case.
+        */
+        if (article.slug !== data.slug) {
+          return article;
+        }
+
+        // when we encounter the article on which the favourite icon was clicked, we are updating the favourating info and returning
+        article.favorited = data.favorited;
+        article.favoritesCount = data.favoritesCount;
+        return article;
+      });
+    },
   },
   actions: {
     async getGlobalFeed({ commit }, payload = { page: 1 }) {
@@ -51,7 +66,6 @@ export default {
       state,
       { title, description, body, tagList = ["test"] }
     ) {
-      console.log(title);
       if (!title) {
         throw new Error("Title cannot be empty");
       }
@@ -77,7 +91,7 @@ export default {
         return response.data.article;
       }
     },
-    async favouriteArticle(state, { slug }) {
+    async favouriteArticle({ commit }, { slug }) {
       let route = "/articles/";
 
       if (slug) {
@@ -87,9 +101,15 @@ export default {
       const response = await API.post(route);
 
       if (response.data) {
-        return response.data.article;
+        // on success, updating the favourite info about the article in our home page feeds
+        commit("setArticleInList", response.data.article);
       }
     },
   },
-  getters: {},
+  getters: {
+    // feed is added in getters so that dynamic behaviour is achieved in case the feed information changes.
+    feed(state) {
+      return state.feed || [];
+    },
+  },
 };

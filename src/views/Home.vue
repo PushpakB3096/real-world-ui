@@ -86,7 +86,7 @@ export default {
       return username;
     },
     articles() {
-      return this.$store.state.articles.feed || [];
+      return this.$store.getters["articles/feed"] || [];
     },
     tags() {
       return this.$store.getters["tags/tags"] || [];
