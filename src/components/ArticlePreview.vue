@@ -13,7 +13,11 @@
       </div>
       <button
         @click="favouriteArticle(slug)"
-        class="btn btn-outline-primary btn-sm pull-xs-right"
+        class="btn btn-sm pull-xs-right"
+        :class="{
+          'btn-primary': favorited,
+          'btn-outline-primary': !favorited,
+        }"
       >
         <i class="ion-heart"></i>
         {{ favoritesCount }}
@@ -44,6 +48,9 @@ export default {
     },
     favoritesCount() {
       return this.article.favoritesCount;
+    },
+    favorited() {
+      return this.article.favorited;
     },
     author() {
       return this.article.author;
@@ -77,3 +84,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.invert_fav_btn_colour {
+  background: #5cb85c;
+}
+</style>
