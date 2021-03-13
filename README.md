@@ -24,6 +24,12 @@ npm install
 npm run serve
 ```
 
+### Test it out
+
+Use the following login credentials to test out the app
+email: rtpushpak+dummy@gmail.com
+password: admin12345
+
 ### License
 
 MIT
