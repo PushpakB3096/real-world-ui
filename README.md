@@ -1,25 +1,29 @@
-# client
+# My edition of gothinkster's [RealWorld.io](https://realworld.io) using VueJS
 
-## Project setup
-```
+---
+
+### Tech Stack
+
+This project makes use of the following languages, frameworks and tools:
+
+- VueJS - as the frontend framework
+- VS Code - as the code editor
+- Git - as the version control system
+- HTML
+- CSS
+
+### Get it running
+
+This project requires [Node.js](https://nodejs.org/) v10+ to run.
+
+Install the dependencies and devDependencies and start the server.
+
+```sh
+cd client
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### License
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-# real-world-ui
+MIT
