@@ -14,7 +14,7 @@
             <ul class="nav nav-pills outline-active">
               <li class="nav-item">
                 <a
-                  class="nav-link"
+                  class="nav-link pointer-cursor"
                   :class="{ active: activeFeed === 'user' }"
                   @click="setFeed('user')"
                   v-if="username"
@@ -23,7 +23,7 @@
               </li>
               <li class="nav-item">
                 <a
-                  class="nav-link"
+                  class="nav-link pointer-cursor"
                   :class="{ active: activeFeed === 'global' }"
                   @click="setFeed('global')"
                   >Global Feed</a
@@ -122,3 +122,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.pointer-cursor {
+  cursor: pointer;
+}
+</style>
